@@ -1,26 +1,33 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scene1.gd" type="Script" id=2]
-[ext_resource path="res://assets/k8x12S.ttf" type="DynamicFontData" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-size = 80
-font_data = ExtResource( 3 )
-
-[sub_resource type="TextMesh" id=2]
-text = "予定調和"
-font = SubResource( 1 )
-depth = 0.125
+[ext_resource path="res://Kdks.tscn" type="PackedScene" id=4]
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 2 )
 
+[node name="MeshInstance" type="MeshInstance" parent="."]
+
+[node name="Kdks" parent="MeshInstance" instance=ExtResource( 4 )]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, 0.615648, -0.788021, 0, 0.788021, 0.615648, 1, 2.69108e-08, -3.44455e-08, -3.881, 3.418, 0 )
+current = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+margin_right = 124.109
+margin_bottom = 30.0
+theme = ExtResource( 1 )
+text = "ダイアログ表示"
 
 [node name="PopupDialog" type="WindowDialog" parent="CanvasLayer"]
 margin_right = 238.0
 margin_bottom = 235.0
+window_title = "設定"
+resizable = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PopupDialog"]
 anchor_right = 1.0
@@ -43,44 +50,50 @@ text = "回転"
 margin_top = 72.0
 margin_right = 238.0
 margin_bottom = 88.0
-max_value = 20.0
+min_value = -10.0
+max_value = 10.0
 step = 0.1
-page = 1.0
 value = 1.0
 
 [node name="HSliderY" type="HSlider" parent="CanvasLayer/PopupDialog/VBoxContainer"]
-margin_top = 72.0
+margin_top = 92.0
 margin_right = 238.0
-margin_bottom = 88.0
-max_value = 20.0
+margin_bottom = 108.0
+min_value = -10.0
+max_value = 10.0
 step = 0.1
-page = 1.0
 value = 1.0
 
 [node name="HSliderZ" type="HSlider" parent="CanvasLayer/PopupDialog/VBoxContainer"]
-margin_top = 72.0
+margin_top = 112.0
 margin_right = 238.0
-margin_bottom = 88.0
-max_value = 20.0
+margin_bottom = 128.0
+min_value = -10.0
+max_value = 10.0
 step = 0.1
-page = 1.0
 value = 1.0
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-margin_right = 12.0
-margin_bottom = 20.0
+[node name="VsyncCheckBox" type="CheckBox" parent="CanvasLayer/PopupDialog/VBoxContainer"]
+margin_top = 132.0
+margin_right = 238.0
+margin_bottom = 164.0
+text = "垂直同期"
+
+[node name="FPSLabel" type="Label" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -14.0
+grow_horizontal = 0
+grow_vertical = 0
 theme = ExtResource( 1 )
-text = "ダイアログ表示"
+text = "FPS: XXX"
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( -4.37114e-08, 0.615648, -0.788021, 0, 0.788021, 0.615648, 1, 2.69108e-08, -3.44455e-08, -3.881, 3.418, 0 )
-current = true
-
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
 [connection signal="toggled" from="CanvasLayer/PopupDialog/VBoxContainer/CheckButton" to="." method="_on_CheckButton_toggled"]
 [connection signal="value_changed" from="CanvasLayer/PopupDialog/VBoxContainer/HSliderX" to="." method="_on_HSliderX_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/PopupDialog/VBoxContainer/HSliderY" to="." method="_on_HSliderY_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/PopupDialog/VBoxContainer/HSliderZ" to="." method="_on_HSliderZ_value_changed"]
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
+[connection signal="toggled" from="CanvasLayer/PopupDialog/VBoxContainer/VsyncCheckBox" to="." method="_on_VsyncCheckBox_toggled"]
