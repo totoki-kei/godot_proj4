@@ -7,6 +7,4 @@ sky_horizon_color = Color( 0.8, 0.8, 0.8, 1 )
 [resource]
 background_mode = 2
 background_sky = SubResource( 1 )
-glow_enabled = true
-glow_bloom = 0.32
-adjustment_enabled = true
+ambient_light_color = Color( 1, 1, 1, 1 )

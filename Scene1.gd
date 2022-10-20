@@ -23,11 +23,9 @@ func _ready():
 	pass
 
 func _on_Kdks_clicked(node : Node) :
-	print_tree()
 	print("Clicked: ", node)
 	node.queue_free()
 	pass
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

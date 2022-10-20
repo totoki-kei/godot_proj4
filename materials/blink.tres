@@ -1,0 +1,94 @@
+[gd_resource type="VisualShader" load_steps=9 format=2]
+
+[sub_resource type="VisualShaderNodeScalarFunc" id=9]
+function = 0
+
+[sub_resource type="VisualShaderNodeScalarOp" id=10]
+default_input_values = [ 0, 0.0, 1, 1.0 ]
+
+[sub_resource type="VisualShaderNodeScalarOp" id=11]
+output_port_for_preview = 0
+default_input_values = [ 0, 0.0, 1, 0.5 ]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarConstant" id=12]
+constant = 3.14159
+
+[sub_resource type="VisualShaderNodeScalarOp" id=13]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id=1]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeInput" id=5]
+input_name = "normal"
+
+[sub_resource type="VisualShaderNodeVectorOp" id=6]
+default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 1, -1, 1 ) ]
+operator = 2
+
+[resource]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Scalar:17
+	float n_out17p0 = 3.141593;
+
+// Input:3
+	float n_out3p0 = TIME;
+
+// ScalarOp:18
+	float n_out18p0 = n_out17p0 * n_out3p0;
+
+// ScalarFunc:14
+	float n_out14p0 = sin(n_out18p0);
+
+// ScalarOp:15
+	float n_in15p1 = 1.00000;
+	float n_out15p0 = n_out14p0 + n_in15p1;
+
+// ScalarOp:16
+	float n_in16p1 = 0.50000;
+	float n_out16p0 = n_out15p0 * n_in16p1;
+
+// Output:0
+	ALBEDO = vec3(n_out16p0);
+	EMISSION = vec3(n_out16p0);
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -566.015, 61.6456 )
+nodes/vertex/0/position = Vector2( 460, 320 )
+nodes/vertex/2/node = SubResource( 5 )
+nodes/vertex/2/position = Vector2( -160, 360 )
+nodes/vertex/3/node = SubResource( 6 )
+nodes/vertex/3/position = Vector2( 112.193, 412.491 )
+nodes/vertex/connections = PoolIntArray( 2, 0, 3, 0 )
+nodes/fragment/0/position = Vector2( 400, 120 )
+nodes/fragment/3/node = SubResource( 1 )
+nodes/fragment/3/position = Vector2( -840, 240 )
+nodes/fragment/14/node = SubResource( 9 )
+nodes/fragment/14/position = Vector2( -600, 360 )
+nodes/fragment/15/node = SubResource( 10 )
+nodes/fragment/15/position = Vector2( -260, 200 )
+nodes/fragment/16/node = SubResource( 11 )
+nodes/fragment/16/position = Vector2( 80, 240 )
+nodes/fragment/17/node = SubResource( 12 )
+nodes/fragment/17/position = Vector2( -820, 140 )
+nodes/fragment/18/node = SubResource( 13 )
+nodes/fragment/18/position = Vector2( -540, 140 )
+nodes/fragment/connections = PoolIntArray( 14, 0, 15, 0, 15, 0, 16, 0, 17, 0, 18, 0, 3, 0, 18, 1, 18, 0, 14, 0, 16, 0, 0, 5, 16, 0, 0, 0 )
